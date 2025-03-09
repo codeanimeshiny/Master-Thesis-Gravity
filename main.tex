@@ -1,0 +1,51 @@
+\documentclass[a4paper,12pt]{article}
+
+\input{preambule}
+
+\begin{document}
+
+\input{titul}
+
+\include{0. Абстракт}
+
+\newpage
+\tableofcontents
+\thispagestyle{toc} % ссылаемся на стиль в преамбуле, чтобы сдвинуть номер страницы направо
+% \thispagestyle{empty} % убираем нумерацию страницы на именно этой
+
+
+\include{1. Введение}
+
+\include{2. Литература}
+
+\include{3. Данные}
+
+\include{4. Методология}
+
+\include{5. Результаты} 
+
+\include{6. Ограничения}
+
+\include{7. Заключение} 
+
+% 7. Источники
+\phantomsection
+\begin{refcontext}[sorting=nyt]
+    \printbibliography[title={Bibliography}] % меняем заголовок в тексте
+\end{refcontext}
+
+\renewcommand{\bibname}{Bibliography} % сменить "Contents" на {...}
+%\phantomsection
+\addcontentsline{toc}{section}{\bibname}
+
+% на той же странице
+%\input{6.5 websites}
+
+\include{7. Приложение}
+
+% \listoftables 
+
+% \listoffigures
+
+
+\end{document}

@@ -1,0 +1,70 @@
+\section{Methodology} 
+\label{sec: method}
+
+\subsection{General Methodological Framework}
+
+This study follows a structured three-step approach to estimating the gravity model of freight flows. The methodology ensures a comprehensive assessment by first establishing a baseline model, then integrating satellite-derived proxy variables, and finally comparing the explanatory power of different model specifications. This framework allows us to evaluate whether satellite-based proxies can effectively replace traditional economic indicators while maintaining or improving model accuracy.
+
+\textit{Step 1}. The first stage of the analysis involves estimating a non-proxy gravity model using traditional economic indicators. Specifically, it involves estimating multiple specifications of the baseline gravity model to determine which estimation techniques provide the most reliable and robust results. 
+
+Here, in a sense, our task is divided into two puzzles. First, we aim to construct a model specification with the highest possible explanatory power based on our data. At the same time, since the inclusion of fixed effects might absorb key variables essential for our broader analysis, we must identify the most robust yet directly interpretable specification. So, the second goal is to establish a reference model that will later be used for evaluating satellite-based proxy-models from second step of our framework.
+
+In the next subsection see the specifications utilized in the first step of our framework.
+
+%The goal is to establish a reference model that will later be used for evaluating satellite-based proxies. The models are estimated using both Ordinary Least Squares (OLS) and Poisson Pseudo-Maximum Likelihood (PPML) methods. 
+
+%The baseline model includes core variables commonly used in gravity models:
+
+%Economic activity of the origin and destination regions, measured by GDP per capita, which reflects the size and purchasing power of each region,
+%Geographic distance between trading regions, which serves as a proxy for trade costs, assuming that longer distances increase transportation expenses and reduce trade volume,
+%Fixed effects, which account for unobserved factors influencing freight flows. At this stage, the model includes exporter and importer fixed effects, as well as time fixed effects to control for macroeconomic shocks affecting all trade flows within a given year. Additionally, sector and transport mode fixed effects are incorporated to capture industry-specific and transportation-related differences in freight movement.
+
+\textit{Step 2}. The second step focuses on incorporating satellite-derived proxy variables into the gravity model to determine whether they can serve as effective substitutes for traditional economic indicators. Specifically, we introduce two key proxies:
+\begin{enumerate}
+    \item Nighttime Light Intensity (NLI), which is used as a proxy for GDP per capita. By replacing GDP per capita with NLI, we assess whether this proxy can provide similar or improved explanatory power in the gravity model. %Previous studies have shown a strong correlation between NLI and economic activity, particularly in cases where official GDP data is unavailable or unreliable (Henderson et al., 2012). 
+    \item Relative Truck Density, which serves as a proxy for either GDP or total freight flow. This measure captures the intensity of freight transportation within a region, assuming that higher truck density reflects greater trade activity. This proxy is particularly useful in cases where direct freight flow data is limited.
+\end{enumerate}
+
+Before integrating these proxies into the model, we first validate their effectiveness by analyzing their correlation with GDP and observed freight flows. A high correlation would indicate that these proxies capture relevant economic activity and can be used as alternative explanatory variables in the gravity model.
+
+Once validated, satellite-based proxies are incorporated into the model, replacing GDP per capita and, in some cases, modifying the specification of trade cost variables. We then re-estimate the model to evaluate whether these proxies improve model fit compared to the baseline specification.
+
+\textit{Step 3}. In the final step, we systematically compare the proxy-based models against the reference model selected in Step 1. This evaluation focuses on two key aspects:
+
+NTL Evaluation: We compare the $R^2$ of the proxy model to the reference model to assess whether NLI provides an equivalent or better fit than GDP per capita. We analyze how the elasticity coefficients of the key explanatory variables change when GDP is replaced by NLI, testing whether the economic relationships remain stable.
+
+Relative Truck Density Evaluation: The comparison depends on whether truck density is used as a proxy for GDP or total freight flow. If it is used as a proxy for GDP, we assess its impact on in the same manner as NLI. Else, if it is used as a proxy for total trade flow, we evaluate its performance based on how well it aligns with observed total freight movements for the region.
+
+The final model selection is based on explanatory power, coefficient stability, and robustness checks. By comparing different model specifications and proxy-based estimations, we determine whether satellite-derived variables can serve as reliable substitutes for traditional economic indicators in gravity models.
+
+\subsection{Gravity Model: Non-proxy approach}
+
+The gravity equation provides a widely used framework for modeling trade flows, drawing from the analogy with Newton’s law of gravitation. In its standard multiplicative form, the empirical model follows the standard gravity equation, which relates trade flows between two regions to their economic size and trade costs \parencite{tinbergen1962shaping, anderson2003gravity}:
+
+\begin{equation}
+    T_{ijt} = G\cdot S_{it}^{\alpha} \cdot M_{jt}^{\beta}\cdot\phi_{ijt}^{\gamma}\cdot\epsilon_{ijt},
+\end{equation}
+where:
+\\ \-\hspace{0.5cm} $T_{ijt}$ is the volume of freight flows from region $i$ to region $j$ at time $t$;
+\\ \-\hspace{0.5cm} $G$ is gravitational constant;
+\\ \-\hspace{0.5cm} $S_{it}$ and $M_{it}$ represent economic activity measures for the exporting and importing regions, respectively (e.g., GDP or its satellite-derived proxy);
+\\ \-\hspace{0.5cm} $\phi_{ijt}$ captures inverse function of trade costs, which include geographic distance, and other barriers to trade;
+\\ \-\hspace{0.5cm} $\alpha, \beta, \gamma$ are elasticity parameters that capture how trade responds to changes in economic size and trade costs;
+\\ \-\hspace{0.5cm} $\epsilon_{ijt}$ is an error term.
+
+In its simplest form, the log-linearized gravity equation takes the form:
+
+\begin{equation}
+    \ln T_{ijt} = const + \alpha \cdot \ln S_{it}+\beta \cdot \ln M_{jt}+\gamma \cdot \ln \phi_{ijt}+\epsilon_{ijt}
+\end{equation}
+
+This specification serves as the baseline gravity model, estimated using Ordinary Least Squares (OLS), following the traditional approach in the trade literature.
+
+As was stated in the literature, OLS estimation has known drawbacks, including heteroskedasticity and the inability to handle zero trade flows properly. To address these issues, we employ the Poisson Pseudo-Maximum Likelihood (PPML) estimator, which models trade flows in multiplicative form:
+
+\begin{equation}
+T_{ijt} = \exp \left( const + \alpha \ln S_{it} + \beta \ln M_{jt} + \gamma \ln \text{dist}_{ij} \right) + e_{ijt}
+\end{equation}
+
+
+Despite the fact that within the framework of gravity modeling it has been proven that PPML is better than OLS, nevertheless by implementing both methods and testing various fixed effects, this study ensures a rigorous empirical assessment of freight flows. 

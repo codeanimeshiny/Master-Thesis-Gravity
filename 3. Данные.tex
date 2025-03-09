@@ -1,0 +1,38 @@
+\section{Data and Variables} 
+\label{sec: data}
+
+\subsection{Sources Description}
+
+\subsubsection{Freight Flows Data}
+
+One of the main challenges in conducting intra-country trade flow analysis is the difficulty on obtaining or even unavailability of such data in the public domain. Although CFS data is commonly utilized in the literature, still we attempted to find more exact data and try to implement our methodology for conducting gravity analysis around it. When considering various open sources, we decided to focus on data from Freight Analysis Framework (FAF)\footnote{ \href{https://www.bts.gov/faf}{Freight Analysis Framework}}, which provides a comprehensive picture of freight movements within the United States. FAF data, produced by the Bureau of Transportation Statistics (BTS) and the Federal Highway Administration (FHWA), covers freight flows across 132 so-called FAF zones, including all major economic centers: both states and combined statistical areas. The FAF data include key attributes such as trade volumes (in value and weight), modes of transportation, and commodity classifications. These variables serve as the foundation for constructing the gravity model of freight flows, allowing for an empirical analysis of interregional trade patterns.
+
+In more detail, the question of why the choice was made in favor of FAF data is answered in \textcite{hu2022comparison}. This paper compares the Commodity Flow Survey (CFS) and the Freight Analysis Framework (FAF) for 2017 domestic freight flows in the United States. The CFS, a shipper survey, collects data on shipments from domestic establishments, while the FAF integrates CFS data with external sources to provide a more comprehensive picture of freight flows, including out-of-scope (OOS) data such as agriculture, construction, and international trade. Key findings reveal that the CFS covers 68\% of the FAF in weight and 89\% in value, with the discrepancy due to OOS freight flows, which add more weight than value, particularly for items like municipal solid waste that have little monetary value but significant weight. By transportation mode, the CFS covers 22\% of FAF freight transported by pipeline (mainly crude petroleum and natural gas) and 74\% by truck, the dominant mode for domestic freight. Commodity-wise, the CFS covers at least 80\% of the FAF in weight for 32 out of 42 commodities, but several commodities (e.g., crude petroleum, logs, waste/scrap) have less than 50\% coverage due to OOS data. All in all, the differences between CFS and FAF are entirely attributable to OOS freight flows, confirming that the FAF process correctly integrates CFS data. Therefore, we are confident in the reliability of this data, and its more comprehensive coverage of occurred shipments definitely enhances our analysis in comparison to existing works.
+
+
+%The FAF database compiles data from multiple sources, including the Commodity Flow Survey (CFS), which accounts for more than 70\% of freight flow estimates (by value). Compared to the CFS, FAF offers a broader scope by incorporating additional datasets, such as foreign trade statistics and industry-specific shipment records, providing a more comprehensive picture of freight transportation. The FAF data include key attributes such as trade volumes (in value and weight), modes of transportation, and commodity classifications. These variables serve as the foundation for constructing the gravity model of freight flows, allowing for an empirical analysis of interregional trade patterns.
+
+%However, the gravity model also requires data on the GDP of the exporter and importer and the geographic distance between them. As such, there are no ready-made data on these FAF zones, so they had to be obtained independently. Regarding GDP, the main difficulty was that there are no data on the GDP of the FAF zones at all. Therefore, in order to estimate the GDP of these zones, it was necessary to look at which territorial units (counties) are included in these zones and sum up the GDP of each of them to obtain the final value. Fortunately, information on the territorial composition of the FAF zones is available and data on counties could be obtained by parsing through the FRED statistical service, which contains various American economic data on many territorial units within states.
+
+\subsubsection{NTL Data}
+
+We use Visible Infrared Imaging Radiometer Suite (VIIRS) satellite nighttime light (NTL) data as a proxy for regional economic activity as measured by GDP. VIIRS provides higher spatial resolution and improved radiometric quality compared to its predecessor DMSP-OLS, making it more suitable for subnational economic analysis.
+
+In particular, we use harmonized data from the DMSP and VIIRS nighttime illuminance database for 1992-2021 on a global scale. To clarify, the DMSP-OLS data suffers from saturation in bright urban areas and inconsistencies between satellites. These issues have been addressed through calibration to enhance comparability. In addition, harmonization makes data from different sources (e.g., different satellite systems) comparable over time. It ensures that moving from one system to another (e.g., from DMSP-OLS to VIIRS) does not lead to artificial jumps in brightness values. However, for the purposes of this study, we do not compare data across systems, as this is not our focus. Given that VIIRS data is both newer and of superior initial quality, we opt to use it for our analysis.
+
+Therefore, we use harmonized VIIRS data in the form of georeferenced raster files. These files contain a grid of nighttime brightness values, where each pixel represents the intensity of artificial light in a particular area. Higher luminance levels indicate greater human activity and economic development.
+
+By extracting light intensity from these raster files, we obtain a spatially consistent measure of regional economic output. This allows us to integrate NTL data into a gravity model as a potential proxy for GDP when analyzing trade flows.
+
+\subsection{Variables Description}
+
+FAF data comprises approximately 2.4 million observations in total (both domestic and inter-national trade) covering 132 FAF zones over a six-year period (2018–2023). It includes detailed information on freight flow volumes, economic indicators, geographic distances, and transportation modes. Table \ref{tab:var_des} shows variable list that will be used after combining the FAF database and satellite data.
+
+\input{tables_in_text/var_des}
+
+Table \ref{tab:descriptive_stats} presents the summary statistics for the key variables in the gravity model. 
+
+A notable characteristic is the presence of zero trade flows, where no recorded shipment occurs between certain FAF zones in a given year. These zeros arise due to multiple factors, including regional specialization, trade barriers, and limited demand for specific commodities between some origin-destination pairs. The inclusion of zero trade flows introduces potential estimation challenges, particularly for models that require log-transformed variables. To address this issue, as previously stated in the literature, the preferred option for such a case is the Poisson pseudo-maximum likelihood (PPML) estimator, which can efficiently handle zero trade flows while mitigating the problems associated with heteroskedasticity (\textcite{silva2006log}).
+
+
+

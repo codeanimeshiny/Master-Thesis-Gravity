@@ -1,0 +1,277 @@
+%\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english]{babel}	% локализация и переносы, язык содержания пишется вторым
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{extsizes} % для использования шрифтов разного размера
+\usepackage{cmap} % чтобы текст можно было копировать 
+\usepackage{setspace} % Package for changing space between the lines
+% \usepackage{lipsum}
+
+
+\usepackage{geometry} % поля, [showframe] показывает поля для контроля заступа
+    \geometry{top=25mm} %20
+    \geometry{bottom=25mm} %20
+    \geometry{left=25mm} %35
+    \geometry{right=25mm} %15
+
+\usepackage{ragged2e} % для выравнивания по ширине
+\usepackage{blindtext}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{graphicx}
+
+\definecolor{rr}{HTML}{D1F5DC}
+\newcommand{\nicecell}[1]{{\cellcolor{rr}#1}}
+
+% \setlength{\fboxsep}{0.05pt}
+% \newcommand{\tmpframe}[1]{\fbox{#1}}
+
+% \usepackage{ulem} % для подчеркивания(нужны доп функции - подчеркнутый текст НЕ переносится)
+% \usepackage{pifont} % для изменения bullet points в списках
+
+\usepackage{indentfirst} % красная строка у первого абзаца
+\linespread{1.3} % полуторный межстрочный интервал
+
+\usepackage{pgf}
+
+\usepackage{parskip}
+\usepackage{enumitem} % отступ в списках, писать: \begin{itemize}[noitemsep,nolistsep]
+\setlength{\parindent}{1.25cm} % красная строка
+\setlength{\parskip}{0ex} % интервал между абзацами
+\frenchspacing % везде одинарные пробелы в тексте
+\pretolerance=9000 % 10000 полный запрет переносов и заездов на правое поле документа.
+\tolerance=1000 % отвечает за переносы
+\setlength{\emergencystretch}{5em}
+
+%================ЗАГОЛОВКИ и СОДЕРЖАНИЕ=================
+\addto\captionsenglish{\renewcommand{\contentsname}{table of contents}}
+
+\renewcommand{\thesection}{\arabic{section}.} % ставим точку после раздела
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.} % ставим точку после подраздела
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.} % ставим точку после подподраздела
+
+
+\usepackage{titlesec}
+\titleformat{\section}
+  {\fontsize{16}{1ex}\bfseries\center}{\thesection}{0.8em}{} % шрифт раздела в тексте+выравнивание+отображение цифры+отступ от цифры
+\titleformat{\subsection}
+  {\fontsize{14}{1ex}\bfseries}{\thesubsection}{0.5em}{} % шрифт подраздела в тексте
+\titleformat{\subsubsection}
+  {\fontsize{12}{1ex}\bfseries}{\thesubsubsection}{0.5em}{} % шрифт подподраздела в тексте
+  
+% \titlespacing*{\section}
+%   {0pt}{2ex}{2ex} % меняем расстояние между названием части и текстом {команда}{отступ и цифрами слева}{до}{после}
+% \titlespacing*{\subsection}
+%   {0pt}{2ex}{2ex}
+% \titlespacing*{\subsubsection}
+%   {0pt}{2ex}{1ex}
+% есть какой-то прикол, что рядом стоящие заголовки притягиваются друг к другу и получается, что отступ между последним заголовком и текстом больше, чем между заголовками
+  
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hspace{0.3\textwidth} \fontsize{16}{1ex}\bfseries\MakeUppercase} % уменьшаем размер шрифта и выравниваем "содержание" по центру
+ 
+ 
+\setlength{\cftbeforetoctitleskip}{5mm} % отступ оглавления от верхнего поля страницы.
+\setlength{\cftbeforesecskip}{4mm} % отступ между секциями \section{title}
+\setlength{\cftbeforesubsecskip}{2mm} % отступ между секциями \subsection{title}
+\setlength{\cftbeforesubsubsecskip}{2mm} % отступ между секциями \subsubsection{title}
+%\setlength{\cftsecindent}{13mm} % отступ между левым полем и \section{title}
+ 
+
+ % отточия в оглавлении
+\renewcommand\cftsecdotsep{\cftdot} % делает отточия после \section{title} частыми.
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % делает отточия после \chapter{title} тонкими, (по умолчанию жирные).
+\cftsetpnumwidth{3pt} % расстояние между отточиями и номерами страниц
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup} % чтобы убрать раздел из оглавления вообще, но номер и название в тексте останутся
+
+%\setcounter{tocdepth}{1} % отменяет вывод в оглавление subsection and subsubsection
+%\setcounter{secnumdepth}{1} % отменяет нумерацию секций в тексте и оглавлении.
+
+% ==================НУМЕРАЦИЯ СТРАНИЦ=================
+\renewcommand{\cftsecpagefont}{\normalfont} % номера страниц секции нормального шрифта
+
+\usepackage{fancyhdr} % для смещения номера страницы направо
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt} % линия наверху с толщиной 0
+
+% номер страницы в содержании
+\fancypagestyle{toc}{%
+\fancyhf{}%
+\fancyfoot[C]{\thepage}
+}
+
+
+%==============================================================
+% % ВИСЯЧИЕ СТРОКИ
+% \clubpenalty=9000 %управляет висячими строками в начале абзаца, по умолчанию 150. Чем больше число, тем меньше вероятность появления одиночных строк в конце листа, они если это возможно будут перенесены на следующий лист. Максимальное число 10000 - полный запрет висячих строк.
+% \widowpenalty=9000 %аналогично, но в отношении последних строк абзаца.
+
+% ====================МАТЕМАТИКА=====================
+\usepackage{amsmath}
+\usepackage{amsfonts} % чтобы писать R в стиле мн-во вещественных чисел
+\usepackage{amssymb}
+\usepackage{amsthm} % для доказательств
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{mathtools}
+\usepackage{mathtext}
+% о пробелах в формулах https://texblog.org/2014/04/09/whitespace-in-math-mode/
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}} % чтобы формулы посреди текста были полноразмерными. Для включения \frac в тексте поменять на \ddfrac
+
+%=======================ССЫЛКИ=======================
+\usepackage{hyperref} % для ссылок
+
+% длинный код для изменения цвета footnote
+\makeatletter
+\def\@footnotecolor{red}
+\define@key{Hyp}{footnotecolor}{%
+ \HyColor@HyperrefColor{#1}\@footnotecolor%
+}
+\def\@footnotemark{%
+    \leavevmode
+    \ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi
+    \stepcounter{Hfootnote}%
+    \global\let\Hy@saved@currentHref\@currentHref
+    \hyper@makecurrent{Hfootnote}%
+    \global\let\Hy@footnote@currentHref\@currentHref
+    \global\let\@currentHref\Hy@saved@currentHref
+    \hyper@linkstart{footnote}{\Hy@footnote@currentHref}%
+    \@makefnmark
+    \hyper@linkend
+    \ifhmode\spacefactor\@x@sf\fi
+    \relax
+  }%
+\makeatother
+
+\hypersetup{
+unicode=true,
+nolinks=false,
+colorlinks=true, % если false, то ссылки обводятся рамками
+linkcolor=black, % важный
+filecolor=red,
+urlcolor=black, % важный
+anchorcolor=cyan,
+menucolor=magenta,
+footnotecolor=black, % важный
+citecolor=black, % важный ! временно синий
+linkbordercolor=red,
+urlbordercolor=teal,
+citebordercolor=blue,
+pdflinkmargin=1.5pt,
+linktocpage=false, % ссылка от названия раздела(F) или страницы(T)
+linktoc=all,
+pdfpagemode=UseOutlines,
+pdfview={XYZ null null 0.9}, % как открываются ссылки
+pdfstartview={XYZ null null 0.9} % как выглядит файл в Adobe
+}
+% \definecolor{link_color}{RGB}{33,33,33}
+
+
+% =======================ТАБЛИЦЫ========================
+\usepackage{float} % чтобы жестко контролировать расположение (опция H)
+\usepackage{multicol} % для использования объединения по столбцам
+\usepackage{multirow} % для использования объединения по строкам
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{longtable} % таблица на несколько страниц
+
+\usepackage{caption} % Changing caption font in tables and figures
+\captionsetup{
+format=plain,
+% indention=2cm,
+margin=1cm,
+justification=centering,
+font=normalfont,
+% textfont=it,
+% labelfont=bf,
+parskip=0pt
+}
+% \captionsetup[figure]{name=Рисунок} % задаем сокращения для класса объектов(можно изменять и другие опции для класса)
+
+\usepackage{booktabs} % красивый формат
+\usepackage{lscape} % вытянутые перевернутые таблицы; pdflscape для переворота страниц с "перевернутыми" таблицами
+\usepackage{dcolumn} % для выравнивания по разделителю дробной части(точке)
+\usepackage{makecell} % выравнивание одновременно по высоте и ширине
+% \usepackage{vcell} % выравнивание по высоте
+\usepackage{rotating}
+
+% [table-format=1.6, group-digits=false] можно использовать после указания типа столбца, т.е. C[] - для выравнивания по разделителю дробной части (но использует math style)
+
+% =====================ГРАФИКА=======================
+\usepackage{tikz} % для графики посредством TikZ
+\usetikzlibrary{matrix, positioning, arrows.meta}
+\usepackage{pgfplots} % для создания графиков
+\usepackage{graphicx} % в т.ч. для таблиц с сайта tablesgenerator.com
+\graphicspath{{images/}}
+\usepackage{flafter} % чтобы картинки вставлялись точно НЕ раньше их упоминания
+\usepackage{color}
+\usepackage{svg}
+\usepackage{pdfpages}
+
+%====================БИБЛИОГРАФИЯ==================
+% \usepackage[numbib,nottoc,numindex]{tocbibind} % для включения библиографии в содержание (альтернативный НЕсогласующийся способ)
+
+\usepackage{csquotes}
+\usepackage[backend=biber,bibencoding=utf8,sorting=ynt,style=apa,defernumbers=true,sortcites=true]{biblatex}
+% при цитированиях в тексте И в библиографии сортировать по year,name,title(но для библиографии в main.tex меняем на nyt)
+
+%\bibliographystyle{apacite}
+% \bibliographystyle{chicago}
+\addbibresource{bible.bib}
+
+% нумеруем библиографию
+\defbibenvironment{bibliography}
+  {\enumerate
+  [nosep, noitemsep, nolistsep, align=left, leftmargin=\parindent+15pt, labelindent=0pt, listparindent=\parindent, labelwidth=0pt, itemindent=!]
+  }
+  {\endenumerate}
+  {\item}
+%maxcitenames=4
+%\usepackage{cite}
+
+
+% меняем "Абгарян и Алексеев", "Абгарян и др." на "Абгарян & Алексеев", "Абгарян et al." для ВСЕХ языков, т.к. русский язык не включен в список языков bibtex'а и настроить отдельное распознавание нельзя(можно, но нужно делать файл russian.lbx)
+
+\DefineBibliographyStrings{russian}{
+  and              = {and}, % \& % по APA 7th в тексте and, в тексте в скобках &, в библиографии &
+  andothers        = {et\addabbrvspace al\adddot},
+  andmore          = {et\addabbrvspace al\adddot}
+}
+
+\DefineBibliographyStrings{english}{
+  and              = {and}, % \&
+  andothers        = {et\addabbrvspace al\adddot},
+  andmore          = {et\addabbrvspace al\adddot}
+}
+
+
+
+\providecommand\noopsort[1]{} % расставляем порядок в библиографии - для этого в коды статей пихаем приписку
+
+% гиперссылка на всё цитирование(в перспективе появится!)
+
+  
+
+% ====================ЧТО-ТО ЗАЧЕМ-ТО===================
+\usepackage{csvsimple}
+
+% =================ДОЛЖНО БЫТЬ В КОНЦЕ===================
+
+
+% \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+% T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newcolumntype{d}{D{.}{.}{-1}} % выравнивание по разделителю целой части
+
+% \Huge, \huge, \LARGE, \Large, \large, \normalsize (default), \small, \footnotesize, \scriptsize, \tiny
+
+
+% =====================ОШИБКИ=====================
+% 1. может возникать конфликт пакетов
+% 2. определенные пакеты должны подключаться в самом конце
+% 3. при неправильном указании пути в \input ломаются также ссылки на статьи
